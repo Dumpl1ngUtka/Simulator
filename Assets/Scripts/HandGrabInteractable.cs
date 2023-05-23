@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class TwoHandGrabInteractable : XRGrabInteractable
+public class HandGrabInteractable : XRGrabInteractable
 {
     [SerializeField] private Transform _mainModel;
     private void Update()

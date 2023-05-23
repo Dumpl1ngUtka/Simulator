@@ -57,8 +57,5 @@ public class HandPhysics : MonoBehaviour
             transform.position = position;
             transform.rotation = _virtualHand.rotation;
         }
-
-        // позициониравть руку в точке во время движения, и просчитывать физику в момент остановкки.
-        // строить лучи и находить точки пересечения с объектами
     }
 }

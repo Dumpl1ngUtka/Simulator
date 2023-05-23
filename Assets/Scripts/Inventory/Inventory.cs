@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
     private PlayerInputSystem _playerInput;
     private int _currentZone;
     private SelectionArea _currentSelectionArea;
-    public int tomat = 2;
     
     private double degree
     {

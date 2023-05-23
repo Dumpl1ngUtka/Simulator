@@ -6,14 +6,14 @@ public class InteractableObjectPhysics : MonoBehaviour
     [SerializeField] private int strength;
     [SerializeField] private int damping;
     [SerializeField] private PlayerController _player;
-    private TwoHandGrabInteractable _twoHandGrabInteractable;
+    private HandGrabInteractable _twoHandGrabInteractable;
     protected Transform _currentTarget;
     protected Rigidbody _rigidbody; 
     protected void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _currentTarget = _defaultTarget;
-        _twoHandGrabInteractable = _defaultTarget.GetComponent<TwoHandGrabInteractable>();
+        _twoHandGrabInteractable = _defaultTarget.GetComponent<HandGrabInteractable>();
     }
     protected void FixedUpdate()
     {

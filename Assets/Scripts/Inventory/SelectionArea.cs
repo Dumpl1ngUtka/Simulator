@@ -14,7 +14,7 @@ public class SelectionArea : MonoBehaviour
             }
             else if (selectobleObject != null)
             {
-                selectobleObject.GetComponent<InteractableObjectPhysics>().Selected();
+
             }
         }
     }

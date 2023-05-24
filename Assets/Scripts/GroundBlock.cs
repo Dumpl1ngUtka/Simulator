@@ -10,7 +10,7 @@ public class GroundBlock : StateMachine
 
     [SerializeField] private Transform _plantSpawnPoint;
 
-    private GameObject currentPlant = null;
+    private Plant currentPlant = null;
 
     private Condition _default;
     private Condition _plowed;
@@ -25,13 +25,13 @@ public class GroundBlock : StateMachine
         _beds = new Condition(_bedsModel);
         _pit = new Condition(_pitModel);
         _plantedBeds = new Condition(_bedsModel);
-        _plantedPit = new Condition(_plantedModel);
+        _plantedPit = new Condition(_pitModel);
 
         _default.AddTransition(Tool.Types.Shovel, _plowed);
         _plowed.AddTransition(Tool.Types.Shovel, _pit);
         _plowed.AddTransition(Tool.Types.Rake, _beds);
-        _beds.AddTransition(Seed.GroundTypes.Bads, _plantedBeds);
-        _pit.AddTransition(Seed.GroundTypes.Pit, _plantedPit);
+        _beds.AddTransition(Tool.Types.Rake, _beds);
+        _plowed.AddTransition(Tool.Types.Rake, _beds);
         
         ChangeCurrentCondition(_default);
     }
@@ -40,20 +40,17 @@ public class GroundBlock : StateMachine
         var workingTool = other.GetComponent<Tool>();
         if (currentPlant == null)
         {
-            if (workingTool != null && CurrentCondtion.FindTransitionWithTool(workingTool.Type) != null)
-            {
+            if (CurrentCondtion.FindTransitionWithTool(workingTool.Type) != null)
                 Worked(workingTool.Type, workingTool.Power);
-            }
 
             var seed = other.GetComponent<Seed>();
             if (seed != null && CurrentCondtion.FindTransitionWithSeed(seed.Type) != null)
-            {
-                currentPlant = Instantiate(seed.Plant.gameObject, _plantSpawnPoint.position, _plantSpawnPoint.rotation);
-                currentPlant.SetActive(true);
-                Worked(seed.Type);
-            }
+                currentPlant = Instantiate(seed.Plant, _plantSpawnPoint.position, _plantSpawnPoint.rotation);
         }
-
+        else
+        {
+            Destroy(currentPlant);
+        }
     }
     public void Worked(Tool.Types workingTool, int power)
     {
@@ -64,14 +61,6 @@ public class GroundBlock : StateMachine
             {
                 ChangeCurrentCondition(transition.NextCondition);
             }
-        }
-    }
-    public void Worked(Seed.GroundTypes seed)
-    {
-        Transition transition = CurrentCondtion.FindTransitionWithSeed(seed);
-        if (transition != null)
-        {
-            ChangeCurrentCondition(transition.NextCondition);
         }
     }
 }

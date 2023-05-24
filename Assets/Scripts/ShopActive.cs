@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopActive : MonoBehaviour
 {
-    [SerializeField] Canvas can;
+    [SerializeField] private GameObject SellDisplay;
+    [SerializeField] private GameObject BuyDisplay;
     private void OnTriggerEnter(Collider col)
     {
         if (!col.CompareTag("Player"))
         {
             return;
         }
-        can.enabled = true;
+        SellDisplay.SetActive(true);
+        BuyDisplay.SetActive(true);
     }
     private void OnTriggerExit(Collider col)
     {
@@ -19,10 +22,12 @@ public class ShopActive : MonoBehaviour
         {
             return;
         }
-        can.enabled = false;
+        SellDisplay.SetActive(false);
+        BuyDisplay.SetActive(false);
     }
     private void Start()
     {
-        can.enabled = false;
+        SellDisplay.SetActive(false);
+        BuyDisplay.SetActive(false);
     }
 }

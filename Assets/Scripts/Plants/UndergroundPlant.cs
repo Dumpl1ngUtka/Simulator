@@ -17,7 +17,7 @@ public class UndergroundPlant : Plant
     protected override void Growing()
     {
         CurrentTime += Time.deltaTime;
-        if (CurrentTime > GrowthTime)
+        if (CurrentTime > 0.3 * GrowthTime)
             isGrowingDone = true;
     }
 
